@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: st3215_ros2_control
+    relative_path: urdf/so_arm100.urdf
+  srdf:
+    relative_path: config/st3215_ros2_control.srdf
+  package_settings:
+    author_name: John Vial
+    author_email: john@soundelve.com
+    generated_timestamp: 1731745462
