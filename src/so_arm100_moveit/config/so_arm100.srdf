@@ -3,7 +3,7 @@
     This is a format for representing semantic information about the robot structure.
     A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
 -->
-<robot name="st3215_ros2_control">
+<robot name="so_arm100">
     <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
     <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
     <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
@@ -23,19 +23,24 @@
         <joint name="Wrist_Pitch" value="0"/>
         <joint name="Wrist_Roll" value="0"/>
     </group_state>
-    <group_state name="open" group="jaw">
-        <joint name="Jaw" value="0.63"/>
-    </group_state>
-    <group_state name="closed" group="jaw">
-        <joint name="Jaw" value="-0.3"/>
+    <group_state name="up" group="arm">
+        <joint name="Elbow" value="-0.8939"/>
+        <joint name="Pitch" value="-0.46"/>
+        <joint name="Rotation" value="0"/>
+        <joint name="Wrist_Pitch" value="-1.7288"/>
+        <joint name="Wrist_Roll" value="0"/>
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="jaw" parent_link="Wrist_Pitch_Roll" group="jaw" parent_group="arm"/>
+    <end_effector name="jaw" parent_link="Fixed_Jaw" group="jaw" parent_group="arm"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="Base" link2="Rotation_Pitch" reason="Adjacent"/>
+    <disable_collisions link1="Base" link2="Upper_Arm" reason="Never"/>
+    <disable_collisions link1="Fixed_Jaw" link2="Lower_Arm" reason="Never"/>
     <disable_collisions link1="Fixed_Jaw" link2="Moving_Jaw" reason="Adjacent"/>
     <disable_collisions link1="Fixed_Jaw" link2="Wrist_Pitch_Roll" reason="Adjacent"/>
+    <disable_collisions link1="Lower_Arm" link2="Moving_Jaw" reason="Never"/>
     <disable_collisions link1="Lower_Arm" link2="Upper_Arm" reason="Adjacent"/>
     <disable_collisions link1="Lower_Arm" link2="Wrist_Pitch_Roll" reason="Adjacent"/>
+    <disable_collisions link1="Moving_Jaw" link2="Wrist_Pitch_Roll" reason="Never"/>
     <disable_collisions link1="Rotation_Pitch" link2="Upper_Arm" reason="Adjacent"/>
 </robot>

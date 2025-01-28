@@ -15,7 +15,7 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-    pkg_share = Path(launch_ros.substitutions.FindPackageShare(package='st3215_ros2_control').find('st3215_ros2_control'))
+    pkg_share = Path(launch_ros.substitutions.FindPackageShare(package='so_arm100').find('so_arm100'))
     default_model_path = pkg_share / 'urdf/so_arm100.urdf'
     default_controller_config_path = pkg_share / 'config/controllers.yaml'
 
@@ -66,4 +66,5 @@ def generate_launch_description():
             name='tag_transform',
             arguments=['0.01', '-0.02', '-0.0', str(math.pi),str(-math.pi/2.0),str(math.pi/2.0),  'tag25h9:0',  'base_footprint'],
         )
+
     ])

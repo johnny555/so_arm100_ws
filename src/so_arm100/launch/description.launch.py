@@ -9,7 +9,7 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
-    pkg_share = Path(launch_ros.substitutions.FindPackageShare(package='st3215_ros2_control').find('st3215_ros2_control'))
+    pkg_share = Path(launch_ros.substitutions.FindPackageShare(package='so_arm100').find('so_arm100'))
     default_model_path = pkg_share / 'urdf/so_arm100.urdf'
 
     robot_state_publisher_node = launch_ros.actions.Node(

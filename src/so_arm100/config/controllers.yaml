@@ -5,7 +5,7 @@ st3215_control:
     usb_port: /dev/ttyACM0
     baud_rate: 1000000
     joint_names: ["Rotation", "Pitch", "Elbow", "Wrist_Pitch", "Wrist_Roll", "Jaw"]
-    joint_ids: [3, 6, 9, 12, 15, 18]
+    joint_ids: [3, 6, 9, 18, 15, 1]
     invert_motor: [true, false, false, false, false, false]
 controller_manager:
   ros__parameters:

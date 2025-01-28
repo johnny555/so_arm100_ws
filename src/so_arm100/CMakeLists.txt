@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(st3215_ros2_control)
+project(so_arm100)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -7,19 +7,9 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(diagnostic_msgs REQUIRED)
-
-add_executable(st3215_control src/st3215_control.cpp)
-ament_target_dependencies(st3215_control rclcpp sensor_msgs diagnostic_msgs )
-target_link_libraries(st3215_control ${CMAKE_SOURCE_DIR}/include/SCServo_Linux/libSCServo.a)
-
-target_include_directories(st3215_control PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-
-install(TARGETS st3215_control DESTINATION lib/${PROJECT_NAME})
-
-
+# uncomment the following section in order to fill in
+# further dependencies manually.
+# find_package(<dependency> REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -33,7 +23,8 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-install(DIRECTORY config
+
+install(DIRECTORY config launch meshes rviz urdf
   DESTINATION share/${PROJECT_NAME}
 )
 

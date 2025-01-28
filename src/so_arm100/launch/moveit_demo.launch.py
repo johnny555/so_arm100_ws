@@ -1,12 +1,12 @@
 """
-Demo of using Joint State Publisher to drive joints. 
-
+Demo using MoveIt & Perception
 """
 
 from pathlib import Path
 
 import launch
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.conditions import IfCondition
 
 import launch_ros
 from launch_ros.actions import Node
@@ -16,7 +16,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
 def generate_launch_description():
-    pkg_share = Path(launch_ros.substitutions.FindPackageShare(package='st3215_ros2_control').find('st3215_ros2_control'))
+    pkg_share = Path(launch_ros.substitutions.FindPackageShare(package='so_arm100').find('so_arm100'))
     default_model_path = pkg_share / 'urdf/so_arm100.urdf'
     default_controller_config_path = pkg_share / 'config/controllers.yaml'
 
@@ -24,21 +24,44 @@ def generate_launch_description():
     robot_state_publisher_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             PathJoinSubstitution([
-                FindPackageShare('st3215_ros2_control'),
+                FindPackageShare('so_arm100'),
                 'launch',
                 'description.launch.py'
                 ])
         ])
     )
 
+    use_serial_arg = DeclareLaunchArgument(
+        'use_serial',
+        default_value='false',
+        description='Whether to launch serial control node'
+    )
+
+
     st3215_control = Node(
+        condition=IfCondition(LaunchConfiguration('use_serial')),
         package='st3215_ros2_control',
         executable='st3215_control',
         name='st3215_control',
-        parameters=[LaunchConfiguration('controlconfig')]
+        parameters=[LaunchConfiguration('controlconfig')],
+        remappings=[('/current_joint_states','/joint_states')]
     )
-    
-    
+
+
+    use_microros_arg = DeclareLaunchArgument(
+        'use_microros',
+        default_value='true',
+        description='Whether to launch micro-ROS node'
+    )
+
+    microros_node = Node(
+        condition=IfCondition(LaunchConfiguration('use_microros')),
+        package='micro_ros_agent',
+        executable='micro_ros_agent',
+        name='micro_ros_agent',
+        arguments=['udp4', '--port', '8888'],
+        remappings=[('/joint_states', '/current_joint_states')]
+    )
 
     control_node = Node(
         package="controller_manager",
@@ -57,7 +80,7 @@ def generate_launch_description():
     move_group = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             PathJoinSubstitution([
-                FindPackageShare('ro_arm100_moveit'),
+                FindPackageShare('so_arm100_moveit'),
                 'launch',
                 'move_group.launch.py'
                 ])
@@ -67,7 +90,7 @@ def generate_launch_description():
     moveit_rviz = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             PathJoinSubstitution([
-                FindPackageShare('ro_arm100_moveit'),
+                FindPackageShare('so_arm100_moveit'),
                 'launch',
                 'moveit_rviz.launch.py'
                 ])
@@ -77,7 +100,7 @@ def generate_launch_description():
     perception = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             PathJoinSubstitution([
-                FindPackageShare('st3215_ros2_control'),
+                FindPackageShare('so_arm100'),
                 'launch',
                 'perception.launch.py'
                 ])
@@ -93,7 +116,9 @@ def generate_launch_description():
         DeclareLaunchArgument(name='controlconfig',
                                              default_value=str(default_controller_config_path),
                                              description='Absolute path to controller config file'),
-
+        use_microros_arg,
+        microros_node,
+        use_serial_arg,
         control_node,
         my_controller_spawner,
         robot_state_publisher_node,

@@ -3,7 +3,7 @@
      Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
-  name="st3215_ros2_control">
+  name="so_arm100">
   <link name="base_footprint"/>
   <joint name="base_footprint_joint" type="fixed">
     <parent
@@ -33,7 +33,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Base.STL" />
+          filename="package://so_arm100/meshes/Base.STL" />
       </geometry>
       <material
         name="">
@@ -47,7 +47,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Base.STL" />
+          filename="package://so_arm100/meshes/Base.STL" />
       </geometry>
     </collision>
   </link>
@@ -73,7 +73,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Rotation_Pitch.STL" />
+          filename="package://so_arm100/meshes/Rotation_Pitch.STL" />
       </geometry>
       <material
         name="">
@@ -87,7 +87,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Rotation_Pitch.STL" />
+          filename="package://so_arm100/meshes/Rotation_Pitch.STL" />
       </geometry>
     </collision>
   </link>
@@ -127,7 +127,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Upper_Arm.STL" />
+          filename="package://so_arm100/meshes/Upper_Arm.STL" />
       </geometry>
       <material
         name="">
@@ -141,7 +141,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Upper_Arm.STL" />
+          filename="package://so_arm100/meshes/Upper_Arm.STL" />
       </geometry>
     </collision>
   </link>
@@ -181,7 +181,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Lower_Arm.STL" />
+          filename="package://so_arm100/meshes/Lower_Arm.STL" />
       </geometry>
       <material
         name="">
@@ -195,7 +195,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Lower_Arm.STL" />
+          filename="package://so_arm100/meshes/Lower_Arm.STL" />
       </geometry>
     </collision>
   </link>
@@ -236,7 +236,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Wrist_Pitch_Roll.STL" />
+          filename="package://so_arm100/meshes/Wrist_Pitch_Roll.STL" />
       </geometry>
       <material
         name="">
@@ -250,7 +250,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Wrist_Pitch_Roll.STL" />
+          filename="package://so_arm100/meshes/Wrist_Pitch_Roll.STL" />
       </geometry>
     </collision>
   </link>
@@ -266,7 +266,7 @@
       link="Wrist_Pitch_Roll" />
     <axis
       xyz="1 0 0" />
-    <limit lower="-1.5708" upper="1.5708"  effort="3" velocity="2" /> 
+    <limit lower="-2.5708" upper="0.2"  effort="3" velocity="2" /> 
 
   </joint>
   <link
@@ -291,7 +291,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Fixed_Jaw.STL" />
+          filename="package://so_arm100/meshes/Fixed_Jaw.STL" />
       </geometry>
       <material
         name="">
@@ -305,7 +305,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Fixed_Jaw.STL" />
+          filename="package://so_arm100/meshes/Fixed_Jaw.STL" />
       </geometry>
     </collision>
   </link>
@@ -321,7 +321,7 @@
       link="Fixed_Jaw" />
     <axis
       xyz="0 1 0" />
-    <limit lower="-3.14" upper="3.14"   effort="3" velocity="2"/> 
+    <limit lower="-0.5" upper="3.14"   effort="3" velocity="2"/> 
 
   </joint>
   <link
@@ -346,7 +346,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Moving_Jaw.STL" />
+          filename="package://so_arm100/meshes/Moving_Jaw.STL" />
       </geometry>
       <material
         name="">
@@ -360,7 +360,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://st3215_ros2_control/meshes/Moving_Jaw.STL" />
+          filename="package://so_arm100/meshes/Moving_Jaw.STL" />
       </geometry>
     </collision>
   </link>
@@ -380,7 +380,7 @@
 
   </joint>
 
-  <ros2_control name="st3215_ros2_controller" type="system">
+  <ros2_control name="so_arm100ler" type="system">
             <hardware>
                 <plugin>topic_based_ros2_control/TopicBasedSystem</plugin>
                 <param name="joint_commands_topic">/desired_joint_states</param>

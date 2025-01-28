@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="so_arm100">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+
+    <!-- Import so_arm100 urdf file -->
+    <xacro:include filename="$(find so_arm100)/urdf/so_arm100.urdf" />
+
+    
+</robot>
